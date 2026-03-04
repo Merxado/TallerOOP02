@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="Inheritance/Inheritance.csproj" />
-  <Project Path="Shapes/Shapes.csproj" Id="88fb8995-cf46-436d-b544-91705bbb09e7" />
+  <Project Path="Inheritance/InheritanceFronted.csproj" />
+  <Project Path="Shapes/ShapesBackend.csproj" Id="88fb8995-cf46-436d-b544-91705bbb09e7" />
 </Solution>

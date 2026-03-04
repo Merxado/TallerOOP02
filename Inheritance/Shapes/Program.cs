@@ -13,11 +13,11 @@ public abstract class Shapes
     public abstract double Perimeter();
 }
 
-public class Circule : Shapes
+public class Circle : Shapes
 {
     private double _r;
 
-    public Circule(double _r) : base("Circle")
+    public Circle(double _r) : base("Circle")
     {
         _r = ref;
     }
