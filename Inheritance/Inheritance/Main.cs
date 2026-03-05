@@ -1,16 +1,20 @@
-﻿using Program;
+﻿using _ShapesBackend;
 
 var circle = new Circle(name: nameof(Circle), r: 5);
 var square = new Square(name: nameof(Square), a: 10);
-var rhombus = new Rhombus(name: nameof(Rhombus), a: 5, d1: 15, d2: 5);
-new Kite(5,6,7,8),
-new Rectangle(12,25.80539),
-new Paralellogram(40,29.32,43.05),
-new Triangle(30,40,14.99,4.6275),
-new Trapeze(10,20,30,40,20)
+var rhombus = new Rhombus(name: nameof(Rhombus), a: 5, d1: 7, d2: 10);
+var kite = new Kite(name: nameof(Kite), a: 7, b: 8, d1: 6, d2: 5);
+var rectangle = new Rectangle(name: nameof(Rectangle), a: 4.568, b: 67.790);
+var paralellogram = new Paralellogram(name: nameof(Paralellogram), a: 14.65, b: 54.67, h: 23.09);
+var triangle = new Triangle(name: nameof(Triangle), a: 45.56, b: 12.34, c: 27.09, h: 15);
+var trapeze = new Trapeze(name: nameof(Trapeze), a: 10, b: 20, c: 30, d: 40, h: 20);
 
-
-foreach (var Shapes in Shapes)
+var shapes = new List<Shapes>
 {
-    Console.WriteLine()
+    circle, square, rhombus, kite, rectangle, paralellogram, triangle, trapeze
+};
+
+foreach (var Shapes in shapes)
+{
+    Console.WriteLine(Shapes);
 }
