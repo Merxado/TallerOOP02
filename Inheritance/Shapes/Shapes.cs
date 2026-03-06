@@ -14,7 +14,7 @@
 
         public override string ToString()
         {
-            return $"{Name,-15} => Area.....: {GetArea(),10:F5}    Perimiter: {GetPerimeter(),10:F5}";
+            return $"{Name,-15} => Area.....: {GetArea(),10:F5}    Perimeter: {GetPerimeter(),10:F5}";
         }
     }
 
@@ -27,19 +27,15 @@
             get => _r;
             set
             {
-                ValidateR(value);
-                _r = value;
+                if (value <= 0)
+                    throw new Exception("Invalid radius");
+
+            _r = value;
             }
         }
-        public Circle(double r) : base("Circle")
+        public Circle(string name, double r) : base(name)
         {
             R = r;
-        }
-
-        private void ValidateR(double r)
-        {
-            if (r <= 0)
-                throw new Exception("Invalid radius");
         }
         public override double GetArea()
         {
@@ -61,22 +57,17 @@
             get => _a;
             set
             {
-                ValidateA(value);
+                if (value <= 0)
+                    throw new Exception("Invalid side");
+
                 _a = value;
             }
         }
 
-        public Square(double a) : base("Square")
-        {
-            A = a;
-        }
-
-        protected void ValidateA(double a)
-        {
-            if (a <= 0)
-                throw new Exception("Invalid side");
-        }
-
+    public Square(string name, double a) : base(name)
+    {
+        A = a;
+    }
         public override double GetArea()
         {
             return _a * _a;
@@ -105,7 +96,7 @@
             set => _d2 = value;
         }
 
-        public Rhombus(double a, double d1, double d2) : base(a)
+        public Rhombus(string name, double a, double d1, double d2) : base(name, a)
         {
             _d1 = d1;
             _d2 = d2;
@@ -127,9 +118,9 @@
             set => _b = value;
         }
 
-        public Kite(double a, double b, double d1, double d2) : base(a, d1, d2)
+        public Kite(string name, double a, double b, double d1, double d2) : base(name, a, d1, d2)
         {
-            _b = b;
+            B = b;
         }
         public override double GetPerimeter()
         {
@@ -151,7 +142,7 @@
             }
         }
 
-        public Rectangle(double a, double b) : base(a)
+        public Rectangle(string name, double a, double b) : base(name, a)
         {
             B = b;
         }
@@ -197,7 +188,7 @@
             }
         }
 
-        public Triangle(double a, double b, double c, double h) : base(a, b)
+        public Triangle(string name, double a, double b, double c, double h) : base(name, a, b)
         {
             C = c;
             H = h;
@@ -239,7 +230,7 @@
             }
         }
 
-        public Parallelogram(double a, double b, double h) : base(a, b)
+        public Parallelogram(string name, double a, double b, double h) : base(name, a, b)
         {
             H = h;
         }
@@ -269,7 +260,7 @@
             }
         }
 
-        public Trapeze(double a, double b, double c, double d, double h) : base(a, b, c, h)
+        public Trapeze(string name, double a, double b, double c, double d, double h) : base(name, a, b, c, h)
         {
             D = d;
         }
