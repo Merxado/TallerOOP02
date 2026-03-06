@@ -34,17 +34,22 @@ namespace _ShapesBackend;
             get => _r;
             set
             {
-                if (value <= 0)
-                    throw new Exception("Invalid radius");
 
-            _r = value;
+                ValidateR(value);
+                _r = value;
             }
         }
         public Circle(string name, double r) : base(name)
         {
             R = r;
         }
-        public override double GetArea()
+
+    protected void ValidateR(double r)
+    {
+        if (r <= 0)
+            throw new Exception("Invalid radio");
+    }
+    public override double GetArea()
         {
             return Math.PI * _r * _r;
         }
@@ -64,9 +69,7 @@ namespace _ShapesBackend;
             get => _a;
             set
             {
-                if (value <= 0)
-                    throw new Exception("Invalid side");
-
+                ValidateA(value);
                 _a = value;
             }
         }
@@ -75,7 +78,13 @@ namespace _ShapesBackend;
     {
         A = a;
     }
-        public override double GetArea()
+
+    protected void ValidateA(double a)
+    {
+        if (a <= 0)
+            throw new Exception("Invalid lenght");
+    }
+    public override double GetArea()
         {
             return _a * _a;
         }
@@ -93,15 +102,15 @@ namespace _ShapesBackend;
 
         public double D1
         {
-            get => _d1;
-            set => _d1 = value;
+            get { return _d1; }
+            set { ValidateD1(value); _d1 = value; }
         }
 
         public double D2
         {
-            get => _d2;
-            set => _d2 = value;
-        }
+        get { return _d2; }
+        set { ValidateD2(value); _d2 = value; }
+    }
 
         public Rhombus(string name, double a, double d1, double d2) : base(name, a)
         {
@@ -109,7 +118,17 @@ namespace _ShapesBackend;
             _d2 = d2;
         }
 
-        public override double GetArea()
+        private void ValidateD1(double d1)
+        {
+            if (d1 <= 0)
+                throw new Exception("Invalid diagonal D1");
+    }
+        private void ValidateD2(double d2)
+        {
+            if (d2 <= 0)
+                throw new Exception("Invalid diagonal D2");
+    }
+    public override double GetArea()
         {
             return (_d1 * _d2) / 2;
         }
@@ -121,15 +140,26 @@ namespace _ShapesBackend;
 
         public double B
         {
-            get => _b;
-            set => _b = value;
+            get { return _b; }
+            set { ValidateB(value); _b = value; }
         }
 
         public Kite(string name, double a, double b, double d1, double d2) : base(name, a, d1, d2)
         {
             B = b;
         }
-        public override double GetPerimeter()
+
+        private void ValidateB(double b)
+        {
+            if (b <= 0)
+                throw new Exception("Invalid side B");
+    }
+
+    public override double GetArea()
+    {
+        return (D1 * _d2) / 2;
+    }
+    public override double GetPerimeter()
         {
             return 2 * (_a + _b);
         }
@@ -251,7 +281,12 @@ namespace _ShapesBackend;
         {
             return _b * _h;
         }
+
+        public override double GetPerimeter()
+        {
+            return 2 * (_a + _b);
     }
+}
 
     public class Trapeze : Triangle
     {
