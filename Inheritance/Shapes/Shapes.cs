@@ -1,4 +1,6 @@
-﻿namespace _ShapesBackend;
+﻿using System.Globalization;
+
+namespace _ShapesBackend;
 
     public abstract class Shapes
     {
@@ -14,7 +16,12 @@
 
         public override string ToString()
         {
-            return $"{Name,-15} => Area.....: {GetArea(),10:F5}    Perimeter: {GetPerimeter(),10:F5}";
+
+            var culture = CultureInfo.InvariantCulture;
+            return String.Format(culture, "{0, -15} => Area.....: {1,12:N5}    Perimeter: {2,12:N5}",
+                Name,
+                GetArea(), 
+                GetPerimeter());
         }
     }
 
