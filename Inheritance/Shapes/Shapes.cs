@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-
-namespace _ShapesBackend {
+﻿namespace _ShapesBackend;
 
     public abstract class Shapes
     {
@@ -12,11 +10,11 @@ namespace _ShapesBackend {
         }
 
         public abstract double GetArea();
-        public abstract double GetPerimiter();
+        public abstract double GetPerimeter();
 
         public override string ToString()
         {
-            return $"{Name,-15} => Area.....: {GetArea(),10:F5}    Perimiter: {GetPerimiter(),10:F5}";
+            return $"{Name,-15} => Area.....: {GetArea(),10:F5}    Perimiter: {GetPerimeter(),10:F5}";
         }
     }
 
@@ -33,7 +31,7 @@ namespace _ShapesBackend {
                 _r = value;
             }
         }
-        public Circle(double r) : base("Cricle")
+        public Circle(double r) : base("Circle")
         {
             R = r;
         }
@@ -48,7 +46,7 @@ namespace _ShapesBackend {
             return Math.PI * _r * _r;
         }
 
-        public override double GetPerimiter()
+        public override double GetPerimeter()
         {
             return 2 * Math.PI * _r;
         }
@@ -56,7 +54,7 @@ namespace _ShapesBackend {
 
     public class Square : Shapes
     {
-        private double _a;
+        protected double _a;
 
         public double A
         {
@@ -84,57 +82,56 @@ namespace _ShapesBackend {
             return _a * _a;
         }
 
-        public override double GetPerimiter()
+        public override double GetPerimeter()
         {
             return 4 * _a;
         }
     }
 
-    public class Rhombus : Shapes
+    public class Rhombus : Square
     {
-        private double _d1;
-        private double _d2;
-        private double _a;
+        protected double _d1;
+        protected double _d2;
 
-        public Rhombus(double d1, double d2, double a) : base(Rhombus)
+        public double D1
         {
-            _d1 = d1;
-            _d1 = d2;
-            _a = a;
+            get => _d1;
+            set => _d1 = value;
         }
 
-        public override double Area()
+        public double D2
         {
-            return (_d1 * _d2) / 2;
+            get => _d2;
+            set => _d2 = value;
         }
 
-        public override double Perimiter()
-        {
-            return 4 * _a;
-        }
-    }
-
-    public class Kite : Shapes
-    {
-        private double _d1;
-        private double _d2;
-        private double _a;
-        private double _b;
-
-        public Kite(double d1, double d2, double a, double b) : base("Kite")
+        public Rhombus(double a, double d1, double d2) : base(a)
         {
             _d1 = d1;
             _d2 = d2;
-            _a = a;
-            _b = b;
         }
 
-        public override double Area()
+        public override double GetArea()
         {
             return (_d1 * _d2) / 2;
         }
+    }
 
-        public override double Perimiter()
+    public class Kite : Rhombus
+    {
+        private double _b;
+
+        public double B
+        {
+            get => _b;
+            set => _b = value;
+        }
+
+        public Kite(double a, double b, double d1, double d2) : base(a, d1, d2)
+        {
+            _b = b;
+        }
+        public override double GetPerimeter()
         {
             return 2 * (_a + _b);
         }
@@ -169,7 +166,7 @@ namespace _ShapesBackend {
             return _a * _b;
         }
 
-        public override double GetPerimiter()
+        public override double GetPerimeter()
         {
             return 2 * (_a + _b);
         }
@@ -185,7 +182,7 @@ namespace _ShapesBackend {
             get => _c;
             set
             {
-                Validatec(value);
+                ValidateC(value);
                 _c = value;
             }
         }
@@ -223,16 +220,15 @@ namespace _ShapesBackend {
             return (_b * _h) / 2;
         }
 
-        public override double GetPerimiter()
+        public override double GetPerimeter()
         {
             return _a + _b + _c;
         }
     }
 
-    publis class Parallelogram : Rectangle
+    public class Parallelogram : Rectangle
     {
         private double _h;
-
         public double H
         {
             get => _h;
@@ -243,7 +239,7 @@ namespace _ShapesBackend {
             }
         }
 
-        public Paralellogram(double a, double b, double h) : base(a, b)
+        public Parallelogram(double a, double b, double h) : base(a, b)
         {
             H = h;
         }
@@ -261,25 +257,36 @@ namespace _ShapesBackend {
 
     public class Trapeze : Triangle
     {
-        
+        private double _d;
 
-        public Trapeze(double a, double b, double c, double d, double h) : base("Trapeze")
+        public double D
         {
-            _a = a;
-            _b = b;
-            _c = c;
-            _d = d;
-            _h = h;
+            get => _d;
+            set
+            {
+                ValidateD(value);
+                _d = value;
+            }
         }
 
-        public override double Area()
+        public Trapeze(double a, double b, double c, double d, double h) : base(a, b, c, h)
+        {
+            D = d;
+        }
+
+        private void ValidateD(double d)
+        {
+            if (d <= 0)
+                throw new Exception("Invalid side D");
+        }
+
+        public override double GetArea()
         {
             return ((_b + _d) * _h) / 2;
         }
 
-        public override double Perimiter()
+        public override double GetPerimeter()
         {
             return _a + _b + _c + _d;
         }
     }
-}
