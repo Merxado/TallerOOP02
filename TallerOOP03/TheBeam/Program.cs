@@ -1,6 +1,6 @@
 ﻿class Program
 {
-    static void Beam()
+    static void Main()
     {
         Console.Write("Ingrese la viga: ");
         string viga = Console.ReadLine();
@@ -19,16 +19,16 @@
             case '&': resistencia = 30; break;
             case '#': resistencia = 90; break;
             default:
-                Console.WriteLine("La viga está mal construida!")
+                Console.WriteLine("La viga está mal construida!");
                 return;
         }
 
         int pesoTotal = 0;
         int secuencia = 0;
 
-        for (int i = 1; i < viga.Lenght; i++)
+        for (int i = 1; i < viga.Length; i++)
         {
-            char c = viga[i]
+            char c = viga[i];
 
             if(c == '=')
             {
@@ -49,7 +49,7 @@
             }
             else
             {
-                Console.WriteLine("La viga está mal construida!")
+                Console.WriteLine("La viga está mal construida!");
                 return;
             }
         }
