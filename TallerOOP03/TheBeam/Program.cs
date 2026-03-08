@@ -2,6 +2,33 @@
 {
     static void Main()
     {
+        while (true)
+        {
+            Console.Write("\n1. Probar viga: ");
+            Console.WriteLine("0. Salir");
+            Console.Write("Seleccione una opción: ");
+
+            string opcion = Console.ReadLine();
+
+            if (opcion == "0")
+            {
+                Console.WriteLine("Programa finalizado.");
+                break;
+            }
+
+            if (opcion == "1")
+            {
+                EvaluarViga();
+            }
+            else
+            {
+                Console.WriteLine("Opción inválida.");
+            }
+        }
+    }
+
+    static void EvaluarViga()
+    {
         Console.Write("Ingrese la viga: ");
         string viga = Console.ReadLine();
 
@@ -30,12 +57,12 @@
         {
             char c = viga[i];
 
-            if(c == '=')
+            if (c == '=')
             {
                 secuencia++;
                 pesoTotal += secuencia;
             }
-            else if(c == '*')
+            else if (c == '*')
             {
                 if (i > 1 && viga[i - 1] == '*')
                 {
