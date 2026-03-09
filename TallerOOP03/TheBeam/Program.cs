@@ -44,13 +44,16 @@
         {
             case '%': resistencia = 10; break;
             case '&': resistencia = 30; break;
-            case '#': resistencia = 100; break;
+            case '#': resistencia = 90; break;
             default:
                 Console.WriteLine("La viga está mal construida!");
                 return;
         }
 
         int pesoTotal = CalcularPeso(viga);
+
+        if (pesoTotal == -1)
+            return;
 
         if (pesoTotal <= resistencia)
             Console.WriteLine("La viga soporta el peso!");
@@ -72,7 +75,13 @@
                 secuencia++;
             }
             else if (c == '*')
-            { 
+            {
+                if (viga[i - 1] == '*')
+                {
+                    Console.WriteLine("La viga está mal construida!");
+                    return -1;
+                }
+
                 pesoTotal += secuencia * 2;
                 secuencia = 0;
             }
