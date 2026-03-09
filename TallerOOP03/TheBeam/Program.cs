@@ -44,12 +44,22 @@
         {
             case '%': resistencia = 10; break;
             case '&': resistencia = 30; break;
-            case '#': resistencia = 90; break;
+            case '#': resistencia = 100; break;
             default:
                 Console.WriteLine("La viga está mal construida!");
                 return;
         }
 
+        int pesoTotal = CalcularPeso(viga);
+
+        if (pesoTotal <= resistencia)
+            Console.WriteLine("La viga soporta el peso!");
+        else
+            Console.WriteLine("la Viga NO soporta el peso!");
+    }
+
+    static int CalcularPeso(string viga)
+    {
         int pesoTotal = 0;
         int secuencia = 0;
 
@@ -60,30 +70,20 @@
             if (c == '=')
             {
                 secuencia++;
-                pesoTotal += secuencia;
             }
             else if (c == '*')
-            {
-                if (i > 1 && viga[i - 1] == '*')
-                {
-                    Console.WriteLine("La viga está mal construida!");
-                    return;
-                }
-
-                int pesoSecuencia = secuencia * (secuencia + 1) / 2;
-                pesoTotal += pesoSecuencia * 2;
+            { 
+                pesoTotal += secuencia * 2;
                 secuencia = 0;
             }
             else
             {
                 Console.WriteLine("La viga está mal construida!");
-                return;
+                return 999;
             }
         }
 
-        if (pesoTotal <= resistencia)
-            Console.WriteLine("La viga soporta el peso!");
-        else
-            Console.WriteLine("la viga NO soporta el peso!");
+        pesoTotal += secuencia;
+        return pesoTotal;
     }
 }
